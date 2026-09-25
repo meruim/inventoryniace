@@ -1,0 +1,62 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790225666836,
+      "tag": "0000_tire_shop_inventory_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790225703816,
+      "tag": "0001_add_admin_exists_function",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790225726848,
+      "tag": "0002_add_customer_address_supplier_sync",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790225762293,
+      "tag": "0003_harden_inventory_functions",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790225788646,
+      "tag": "0004_count_beginning_stock_in_bodega_and_restrict_transfers",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790227524364,
+      "tag": "0005_purchases_supplier_details",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790229197753,
+      "tag": "0006_bodega_in_includes_beginning_stock",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1790295241225,
+      "tag": "0007_admin_only_write_tires_purchases",
+      "breakpoints": true
+    }
+  ]
+}
