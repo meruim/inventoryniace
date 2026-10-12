@@ -48,9 +48,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="grid h-8 w-8 place-items-center rounded-full border-2 border-primary text-primary">
               <span className="h-3 w-3 rounded-full bg-primary" />
             </span>
-            <span className="font-display text-lg font-bold uppercase tracking-widest">
-              Niks Tirezone
-            </span>
+            <span className="font-display text-lg font-bold uppercase tracking-widest">Tire Shop</span>
           </Link>
           <div className="ml-auto flex items-center gap-2 sm:gap-3">
             <span className="hidden text-sm text-muted-foreground lg:inline">{email}</span>
@@ -62,21 +60,16 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </div>
         <nav className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-3 pb-2">
-          {nav
-            .filter((item) => isAdmin || item.to !== "/staff")
-            .map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="label-caps whitespace-nowrap rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-foreground"
-                activeProps={{
-                  className:
-                    "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+          {nav.filter((item) => isAdmin || item.to !== "/staff").map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className="label-caps whitespace-nowrap rounded-md px-3 py-1.5 text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-foreground"
+              activeProps={{ className: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground" }}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
       </header>
       <main className="mx-auto max-w-7xl px-4 py-8">{children}</main>

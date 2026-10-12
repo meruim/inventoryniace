@@ -12,12 +12,9 @@ import { useIsAdmin } from "@/hooks/use-is-admin";
 export const Route = createFileRoute("/_authenticated/staff")({
   head: () => ({
     meta: [
-      { title: "Staff accounts | Niks Tirezone Inventory" },
-      {
-        name: "description",
-        content: "Create and manage staff sign-in accounts for the Niks Tirezone system.",
-      },
-      { property: "og:title", content: "Staff accounts | Niks Tirezone Inventory" },
+      { title: "Staff accounts | Tire Shop Inventory" },
+      { name: "description", content: "Create and manage staff sign-in accounts for the tire shop system." },
+      { property: "og:title", content: "Staff accounts | Tire Shop Inventory" },
       { property: "og:description", content: "Create and manage staff sign-in accounts." },
     ],
   }),
@@ -32,12 +29,7 @@ function StaffPage() {
   const doDelete = useServerFn(deleteStaff);
 
   const isAdmin0 = useIsAdmin();
-  const { data, error } = useQuery({
-    queryKey: ["staff"],
-    queryFn: () => fetchStaff(),
-    enabled: isAdmin0,
-    retry: false,
-  });
+  const { data, error } = useQuery({ queryKey: ["staff"], queryFn: () => fetchStaff(), enabled: isAdmin0, retry: false });
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,8 +38,7 @@ function StaffPage() {
   const invalidate = () => queryClient.invalidateQueries({ queryKey: ["staff"] });
 
   const createMutation = useMutation({
-    mutationFn: (input: { email: string; password: string; isAdmin: boolean }) =>
-      doCreate({ data: input }),
+    mutationFn: (input: { email: string; password: string; isAdmin: boolean }) => doCreate({ data: input }),
     onSuccess: () => {
       toast.success("Staff account created.");
       setEmail("");
@@ -99,13 +90,7 @@ function StaffPage() {
       >
         <div className="space-y-1.5">
           <Label htmlFor="staff-email">Email</Label>
-          <Input
-            id="staff-email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <Input id="staff-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="staff-password">Password</Label>
@@ -162,8 +147,7 @@ function StaffPage() {
                       variant="destructive"
                       size="sm"
                       onClick={() => {
-                        if (window.confirm(`Remove the account for ${u.email}?`))
-                          deleteMutation.mutate(u.id);
+                        if (window.confirm(`Remove the account for ${u.email}?`)) deleteMutation.mutate(u.id);
                       }}
                     >
                       Remove
