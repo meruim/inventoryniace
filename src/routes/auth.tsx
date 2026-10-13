@@ -9,13 +9,10 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Staff sign in | TNiks Tirezone Inventory" },
-      {
-        name: "description",
-        content: "Secure sign in for Niks Tirezone staff to manage inventory, sales and purchases.",
-      },
-      { property: "og:title", content: "Staff sign in | Niks Tirezone Inventory" },
-      { property: "og:description", content: "Secure sign in for Niks Tirezone staff." },
+      { title: "Staff sign in | Tire Shop Inventory" },
+      { name: "description", content: "Secure sign in for tire shop staff to manage inventory, sales and purchases." },
+      { property: "og:title", content: "Staff sign in | Tire Shop Inventory" },
+      { property: "og:description", content: "Secure sign in for tire shop staff." },
     ],
   }),
   component: AuthPage,
@@ -76,19 +73,11 @@ function AuthPage() {
           ← Back
         </Link>
         <h1 className="mt-4 text-3xl font-bold uppercase tracking-wide">Staff sign in</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Niks Tirezone inventory &amp; sales system
-        </p>
+        <p className="mt-1 text-sm text-muted-foreground">Tire shop inventory &amp; sales system</p>
         <form className="mt-6 space-y-4" onSubmit={onSubmit}>
           <div className="space-y-1.5">
             <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="password">Password</Label>
@@ -112,9 +101,7 @@ function AuthPage() {
             className="mt-4 w-full text-center text-xs text-muted-foreground underline"
             onClick={() => setSignUp((v) => !v)}
           >
-            {signUp
-              ? "Already have an account? Sign in"
-              : "No admin yet? Create the first admin account"}
+            {signUp ? "Already have an account? Sign in" : "No admin yet? Create the first admin account"}
           </button>
         ) : (
           <p className="mt-4 text-center text-xs text-muted-foreground">

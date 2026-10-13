@@ -33,16 +33,13 @@ type LogRow = {
 export const Route = createFileRoute("/_authenticated/logs")({
   head: () => ({
     meta: [
-      { title: "Activity logs | Niks Tirezone Inventory" },
+      { title: "Activity logs | Tire Shop Inventory" },
       {
         name: "description",
-        content: "History of every record added, edited or deleted in the Niks Tirezone system.",
+        content: "History of every record added, edited or deleted in the tire shop system.",
       },
-      { property: "og:title", content: "Activity logs | Niks Tirezone Inventory" },
-      {
-        property: "og:description",
-        content: "See who changed what and when across the shop records.",
-      },
+      { property: "og:title", content: "Activity logs | Tire Shop Inventory" },
+      { property: "og:description", content: "See who changed what and when across the shop records." },
     ],
   }),
   component: LogsPage,
@@ -69,12 +66,7 @@ function LogsPage() {
     const term = search.trim().toLowerCase();
     if (!term) return list;
     return list.filter((r) =>
-      [
-        r.actor_email,
-        ACTION_LABELS[r.action] ?? r.action,
-        SECTION_LABELS[r.table_name] ?? r.table_name,
-        r.summary,
-      ]
+      [r.actor_email, ACTION_LABELS[r.action] ?? r.action, SECTION_LABELS[r.table_name] ?? r.table_name, r.summary]
         .filter(Boolean)
         .some((v) => String(v).toLowerCase().includes(term)),
     );
@@ -85,8 +77,7 @@ function LogsPage() {
       <div>
         <h1 className="text-3xl font-bold uppercase tracking-wide">Activity logs</h1>
         <p className="text-sm text-muted-foreground">
-          Every record added, edited or deleted — with who did it and when. Showing the 500 most
-          recent entries.
+          Every record added, edited or deleted — with who did it and when. Showing the 500 most recent entries.
         </p>
       </div>
 

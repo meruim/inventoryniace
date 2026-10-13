@@ -9,16 +9,10 @@ import { ItemFilters, applyItemFilters, type SortOrder } from "@/components/Item
 export const Route = createFileRoute("/_authenticated/inventory")({
   head: () => ({
     meta: [
-      { title: "Inventory | Niks Tirezone Inventory" },
-      {
-        name: "description",
-        content: "Live tire stock levels, reorder status and stock value per item.",
-      },
-      { property: "og:title", content: "Inventory | Niks Tirezone Inventory" },
-      {
-        property: "og:description",
-        content: "Live tire stock levels, reorder status and stock value.",
-      },
+      { title: "Inventory | Tire Shop Inventory" },
+      { name: "description", content: "Live tire stock levels, reorder status and stock value per item." },
+      { property: "og:title", content: "Inventory | Tire Shop Inventory" },
+      { property: "og:description", content: "Live tire stock levels, reorder status and stock value." },
     ],
   }),
   component: Inventory,
@@ -38,43 +32,18 @@ function Inventory() {
   const { data, isLoading } = useQuery({
     queryKey: ["inventory_view"],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
-        .from("inventory_view")
-        .select("*")
-        .order("tire_code");
+      const { data, error } = await (supabase as any).from("inventory_view").select("*").order("tire_code");
       if (error) throw error;
       return (data ?? []) as any[];
     },
   });
 
-  const rows = applyItemFilters(
-    (data ?? []).filter((r) =>
-      `${r.tire_code} ${r.brand} ${r.size} ${r.pattern ?? ""} ${r.supplier_name ?? ""}`
-        .toLowerCase()
-        .includes(search.toLowerCase()),
-    ),
-    size,
-    sort,
-  );
-  const headers = [
-    "Tire code",
-    "Brand",
-    "Size",
-    "Pattern",
-    "Supplier",
-    "Bodega IN",
-    "Bodega OUT",
-    "Bodega stock",
-    "Store IN",
-    "Store OUT",
-    "Store stock",
-    "Total stock",
-    "Reorder",
-    "Status",
-    ...(isAdmin ? ["Unit cost"] : []),
-    "Price",
-    ...(isAdmin ? ["Value"] : []),
-  ];
+  const rows = applyItemFilters((data ?? []).filter((r) =>
+    `${r.tire_code} ${r.brand} ${r.size} ${r.pattern ?? ""} ${r.supplier_name ?? ""}`
+      .toLowerCase()
+      .includes(search.toLowerCase()),
+  ), size, sort);
+  const headers = ["Tire code", "Brand", "Size", "Pattern", "Supplier", "Bodega IN", "Bodega OUT", "Bodega stock", "Store IN", "Store OUT", "Store stock", "Total stock", "Reorder", "Status", ...(isAdmin ? ["Unit cost"] : []), "Price", ...(isAdmin ? ["Value"] : [])];
 
   return (
     <div className="space-y-6">
@@ -85,26 +54,20 @@ function Inventory() {
             Stock is calculated from beginning stock, purchases, sales and adjustments.
           </p>
         </div>
-        <ItemFilters
-          search={search}
-          setSearch={setSearch}
-          size={size}
-          setSize={setSize}
-          sort={sort}
-          setSort={setSort}
-          sizes={(data ?? []).map((r) => r.size)}
-        />
+        <ItemFilters search={search} setSearch={setSearch} size={size} setSize={setSize} sort={sort} setSort={setSort} sizes={(data ?? []).map((r) => r.size)} />
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border bg-card">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border">
-              {headers.map((h) => (
-                <th key={h} className="label-caps whitespace-nowrap px-3 py-3 text-left">
-                  {h}
-                </th>
-              ))}
+              {headers.map(
+                (h) => (
+                  <th key={h} className="label-caps whitespace-nowrap px-3 py-3 text-left">
+                    {h}
+                  </th>
+                ),
+              )}
             </tr>
           </thead>
           <tbody>
@@ -138,17 +101,13 @@ function Inventory() {
                 <td className="px-3 py-2.5 font-semibold">{r.current_stock}</td>
                 <td className="px-3 py-2.5">{r.reorder_level}</td>
                 <td className="whitespace-nowrap px-3 py-2.5">
-                  <span
-                    className={`rounded px-2 py-1 text-xs font-semibold ${statusClass[r.status] ?? ""}`}
-                  >
+                  <span className={`rounded px-2 py-1 text-xs font-semibold ${statusClass[r.status] ?? ""}`}>
                     {r.status}
                   </span>
                 </td>
                 {isAdmin && <td className="whitespace-nowrap px-3 py-2.5">{peso(r.unit_cost)}</td>}
                 <td className="whitespace-nowrap px-3 py-2.5">{peso(r.selling_price)}</td>
-                {isAdmin && (
-                  <td className="whitespace-nowrap px-3 py-2.5">{peso(r.stock_value)}</td>
-                )}
+                {isAdmin && <td className="whitespace-nowrap px-3 py-2.5">{peso(r.stock_value)}</td>}
               </tr>
             ))}
           </tbody>

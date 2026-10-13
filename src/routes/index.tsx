@@ -3,13 +3,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Niks Tirezone Inventory & Sales System" },
+      { title: "Tire Shop Inventory & Sales System" },
       {
         name: "description",
         content:
-          "Online Niks Tirezone system for stock, purchases, sales, adjustments, suppliers and customers. Secure staff sign-in required.",
+          "Online tire shop system for stock, purchases, sales, adjustments, suppliers and customers. Secure staff sign-in required.",
       },
-      { property: "og:title", content: "Niks Tirezone Inventory & Sales System" },
+      { property: "og:title", content: "Tire Shop Inventory & Sales System" },
       {
         property: "og:description",
         content: "Track tire stock, purchases, sales and profit online, with secure staff sign-in.",
@@ -37,9 +37,7 @@ function Landing() {
             <span className="grid h-8 w-8 place-items-center rounded-full border-2 border-primary text-primary">
               <span className="h-3 w-3 rounded-full bg-primary" />
             </span>
-            <span className="font-display text-lg font-bold uppercase tracking-widest">
-              Niks Tirezone
-            </span>
+            <span className="font-display text-lg font-bold uppercase tracking-widest">Tire Shop</span>
           </div>
           <Link
             to="/auth"
@@ -53,12 +51,12 @@ function Landing() {
       <section className="mx-auto max-w-5xl px-6 py-20">
         <p className="label-caps">Inventory &amp; sales system</p>
         <h1 className="mt-3 max-w-3xl text-5xl font-bold uppercase leading-[0.95] tracking-tight sm:text-6xl">
-          Your Niks Tirezone workbook,
+          Your tire shop workbook,
           <span className="text-primary"> now online</span>
         </h1>
         <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-          Add, edit and delete tires, deliveries, sales and stock corrections from any device. Only
-          signed-in staff can see or change your data.
+          Add, edit and delete tires, deliveries, sales and stock corrections from any device. Only signed-in staff can
+          see or change your data.
         </p>
         <Link
           to="/auth"
@@ -78,7 +76,7 @@ function Landing() {
       </section>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        Niks Tirezone Inventory &amp; Sales System
+        Tire Shop Inventory &amp; Sales System
       </footer>
     </div>
   );

@@ -79,13 +79,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Niks Tirezone Inventory & Sales System" },
+      { title: "Tire Shop Inventory & Sales System" },
       {
         name: "description",
-        content:
-          "Online Niks Tirezone system for stock, purchases, sales, suppliers and customers.",
+        content: "Online tire shop system for stock, purchases, sales, suppliers and customers.",
       },
-      { property: "og:title", content: "Niks Tirezone Inventory & Sales System" },
+      { property: "og:title", content: "Tire Shop Inventory & Sales System" },
       {
         property: "og:description",
         content: "Track tire stock, purchases, sales and profit online, with secure staff sign-in.",

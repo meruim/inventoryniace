@@ -64,26 +64,19 @@ function ExcelBackupCard() {
         (n) => n.trim().toLowerCase() === tireResource.title.toLowerCase(),
       );
       if (tireSheetName) {
-        const { rows, errors } = parseSheet(
-          book.Sheets[tireSheetName]!,
-          tireResource,
-          tireCodeToId,
-        );
+        const { rows, errors } = parseSheet(book.Sheets[tireSheetName]!, tireResource, tireCodeToId);
         if (errors.length > 0) throw new Error(`[${tireSheetName}] ${errors[0]}`);
         if (rows.length > 0) {
           const { error } = await db.from("tires").insert(rows);
           if (error) throw error;
           const { data: refreshed } = await supabase.from("tires").select("id, tire_code");
-          for (const t of refreshed ?? [])
-            tireCodeToId.set(String(t.tire_code).toLowerCase(), t.id);
+          for (const t of refreshed ?? []) tireCodeToId.set(String(t.tire_code).toLowerCase(), t.id);
         }
       }
 
       const { byTable, errors } = await parseWorkbookFile(file, all, tireCodeToId);
       if (errors.length > 0) {
-        toast.error(
-          `Import stopped. ${errors[0]}${errors.length > 1 ? ` (+${errors.length - 1} more)` : ""}`,
-        );
+        toast.error(`Import stopped. ${errors[0]}${errors.length > 1 ? ` (+${errors.length - 1} more)` : ""}`);
         return;
       }
       let total = 0;
@@ -95,8 +88,7 @@ function ExcelBackupCard() {
         total += rows.length;
       }
       total += tireSheetName ? (byTable["tires"]?.length ?? 0) : 0;
-      if (total === 0 && !tireSheetName)
-        toast.error("Nothing to import — no matching tabs or rows.");
+      if (total === 0 && !tireSheetName) toast.error("Nothing to import — no matching tabs or rows.");
       else toast.success(`Imported ${total} record${total === 1 ? "" : "s"} across all sections.`);
       queryClient.invalidateQueries();
     } catch (error) {
@@ -141,40 +133,22 @@ function ExcelBackupCard() {
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard | Niks Tirezone Inventory" },
-      {
-        name: "description",
-        content: "Live stock value, sales, profit and reorder alerts for the Niks Tirezone.",
-      },
-      { property: "og:title", content: "Dashboard | Niks Tirezone Inventory" },
-      {
-        property: "og:description",
-        content: "Live stock value, sales, profit and reorder alerts.",
-      },
+      { title: "Dashboard | Tire Shop Inventory" },
+      { name: "description", content: "Live stock value, sales, profit and reorder alerts for the tire shop." },
+      { property: "og:title", content: "Dashboard | Tire Shop Inventory" },
+      { property: "og:description", content: "Live stock value, sales, profit and reorder alerts." },
     ],
   }),
   component: Dashboard,
 });
 
-function Stat({
-  label,
-  value,
-  tone,
-}: {
-  label: string;
-  value: string;
-  tone?: "warning" | "destructive";
-}) {
+function Stat({ label, value, tone }: { label: string; value: string; tone?: "warning" | "destructive" }) {
   return (
     <div className="rounded-lg border border-border bg-card p-5">
       <p className="label-caps">{label}</p>
       <p
         className={`mt-2 font-display text-3xl font-bold ${
-          tone === "warning"
-            ? "text-warning"
-            : tone === "destructive"
-              ? "text-destructive"
-              : "text-foreground"
+          tone === "warning" ? "text-warning" : tone === "destructive" ? "text-destructive" : "text-foreground"
         }`}
       >
         {value}
@@ -212,9 +186,7 @@ function Dashboard() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold uppercase tracking-wide">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">
-          Everything updates automatically from your records.
-        </p>
+        <p className="text-sm text-muted-foreground">Everything updates automatically from your records.</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Tire items" value={String(inventory.length)} />
